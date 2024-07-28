@@ -1,19 +1,21 @@
-import openai
+from openai import OpenAI
 import dotenv
 import os
 
 # APIキーの設定
 dotenv.load_dotenv()
-openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 class OpenAIAdapter:
+    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
     SAVE_PREVIOUS_CHAT_NUM = 5
     def __init__(self):
+        self.client = OpenAI(api_key=self.OPENAI_API_KEY)
         # system_promptはsystem_prompt.txtから読み込む
         with open("system_prompt.txt","r",encoding="utf-8") as f:
             self.system_prompt = f.read()
         self.chat_log = []
         pass
+
     def _create_message(self,role,message):
         return {
             "role":role,
@@ -26,11 +28,11 @@ class OpenAIAdapter:
         user_message = self._create_message("user",question)
         messages.append(user_message)
 
-        res = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+        res = self.client.chat.completions.create(
+            model="gpt-4o-mini",
             messages=messages,
         )
-        answer = res["choices"][0]["message"]["content"]
+        answer = res.choices[0].message.content
         self._update_messages(question,answer)
 
         return answer

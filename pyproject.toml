@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "aituber-python-programing-example"
+version = "0.1.0"
+description = ""
+authors = ["sr2mg <55787575+sr2mg@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-dotenv = "^1.0.1"
+openai = "^1.37.1"
+obsws-python = "^1.7.0"
+sounddevice = "^0.4.7"
+requests = "^2.32.3"
+soundfile = "^0.12.1"
+pytchat = "^0.5.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
